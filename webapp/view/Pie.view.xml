@@ -14,7 +14,7 @@
 >
     <Page
         showHeader="false"
-        enableScrolling="true" 
+        enableScrolling="true"
         backgroundDesign="Transparent"
     >
         <content>
@@ -25,8 +25,6 @@
                     showZoom="false"
                 >
                     <chart:dimensionSelectors>
-                        <!-- <ToolbarSpacer width="80%">
-                    </ToolbarSpacer> -->
                         <Label
                             text="Value Label"
                             design="Bold"

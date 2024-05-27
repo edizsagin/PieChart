@@ -26,8 +26,8 @@ sap.ui.define(
         var oRouter = this.getRouter();
         oRouter.getRoute("pie").attachMatched(this._onRouteMatched, this);
 
-        //  Renkleri değiştirmek istersek ;
-        // Color Plate link:   https://experience.sap.com/fiori-design-web/values-and-names/
+        //  If you want to change the colors ;
+        //  Color Plate link:   https://experience.sap.com/fiori-design-web/values-and-names/
         var oChart = this.getView().byId("VizFrame");
         var oChartProperties = oChart.getVizProperties();
         var aColorPalate = [
@@ -51,15 +51,7 @@ sap.ui.define(
         var oChart = this.getView().byId("VizFrame");
         var oPopOver = this.getView().byId("idPopOver");
         oPopOver.connect(oChart.getVizUid());
-        // oPopOver.setFormatString(ChartFormatter.DefaultPattern);
       },
-      // SwitchChange: function (oEvent) {
-      //   var oChart = this.getView().byId("idpiechart"),
-
-      //   var status = oEvent.getSource().getState();
-      //   if ((status = "false")) {
-      //   }
-      // },
       onInputSubmit: function (oEvent) {
         var source = oEvent.getSource().getBindingContext().getProperty();
 
