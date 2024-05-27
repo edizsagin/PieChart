@@ -1,0 +1,203 @@
+<mvc:View
+    controllerName="pie.controller.Pie"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:chart="sap.suite.ui.commons"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        showHeader="false"
+        enableScrolling="true" 
+        backgroundDesign="Transparent"
+    >
+        <content>
+            <VBox>
+                <chart:ChartContainer
+                    id="chartContainer"
+                    showFullScreen="true"
+                    showZoom="false"
+                >
+                    <chart:dimensionSelectors>
+                        <!-- <ToolbarSpacer width="80%">
+                    </ToolbarSpacer> -->
+                        <Label
+                            text="Value Label"
+                            design="Bold"
+                        />
+                        <Switch
+                            id="idSwitch"
+                            change="SwitchChange"
+                            enabled="true"
+                            name=""
+                            state="false"
+                            type="AcceptReject"
+                        />
+                    </chart:dimensionSelectors>
+                    <chart:ChartContainerContent>
+                        <chart:content>
+                            <viz:VizFrame
+                                id="VizFrame"
+                                width="auto"
+                                uiConfig="{
+                                    applicationSet: 'fiori'
+                                }"
+                                vizType="pie"
+                                vizProperties="{
+                                    plotArea: {
+                                        dataLabel: {
+                                            visible: true,
+                                            type: 'percentage'
+                                        },
+                                        drawingEffect: 'glossy'
+                                    },
+                                    title: {
+                                        text: 'Color-Frequency'
+                                    },
+                                    legendGroup: {
+                                        layout: {
+                                            position: 'left'
+                                        }
+                                    }
+                                }"
+                                selectData="myOnClickHandler"
+                                height="400px"
+                                noDataText="No Data Found"
+                                renderComplete="handleRenderComplete"
+                            >
+                                <viz:dataset>
+                                    <viz.data:FlattenedDataset
+                                        id="flattenData"
+                                        data="{/Data_PieSet}"
+                                    >
+                                        <viz.data:dimensions>
+                                            <viz.data:DimensionDefinition
+                                                axis="1"
+                                                name="Color"
+                                                value="{Color}"
+                                            />
+                                        </viz.data:dimensions>
+                                        <viz.data:measures>
+                                            <viz.data:MeasureDefinition
+                                                name="Freq"
+                                                value="{Freq}"
+                                            />
+                                        </viz.data:measures>
+                                    </viz.data:FlattenedDataset>
+                                </viz:dataset>
+                                <viz:feeds>
+                                    <viz.feeds:FeedItem
+                                        uid="size"
+                                        type="Measure"
+                                        values="Freq"
+                                    />
+                                    <viz.feeds:FeedItem
+                                        uid="color"
+                                        type="Dimension"
+                                        values="Color"
+                                    />
+                                </viz:feeds>
+                                <viz:dependents>
+                                    <viz:Popover id="idPopOver" />
+                                </viz:dependents>
+                            </viz:VizFrame>
+                        </chart:content>
+                    </chart:ChartContainerContent>
+                </chart:ChartContainer>
+            </VBox>
+            <VBox>
+                <smartTable:SmartTable
+                    smartFilterId="idSmartFilterBar"
+                    showVariantManagement="false"
+                    beforeRebindTable="onBeforeRebindTable"
+                    entitySet="Data_PieSet"
+                    useVariantManagement="false"
+                    useTablePersonalisation="false"
+                    showRowCount="false"
+                    useExportToExcel="false"
+                    enableAutoBinding="true"
+                    showFullScreenButton="false"
+                    header=""
+                    backgroundDesign="Solid"
+                    showDetailsButton="false"
+                    showTablePersonalisation="false"
+                >
+                    <Table
+                        id="idTable"
+                        width="50%"
+                    >
+                        <columns>
+                            <Column>
+                                <customData>
+                                    <core:CustomData
+                                        key="p13nData"
+                                        value='\{"columnKey": "Color", "columnIndex":"0", "leadingProperty":"Color", "sortProperty": "Color"}'
+                                    />
+                                </customData>
+                                <Text
+                                    text="Color"
+                                    textAlign="Center"
+                                />
+                            </Column>
+                            <Column>
+                                <customData>
+                                    <core:CustomData
+                                        key="p13nData"
+                                        value='\{"columnKey":"Freq", "columnIndex":"1", "sortProperty": "Freq", "leadingProperty":"Freq"}'
+                                    />
+                                </customData>
+                                <Text
+                                    text="Frequency"
+                                    textAlign="Center"
+                                />
+                            </Column>
+                            <Column>
+                                <customData>
+                                    <core:CustomData
+                                        key="p13nData"
+                                        value='\{"columnKey":"Detail", "columnIndex":"3", "sortProperty": "Detail", "leadingProperty":"Detail"}'
+                                    />
+                                </customData>
+                                <Text
+                                    text="Detail"
+                                    textAlign="Center"
+                                />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem
+                                type="Active"
+                                press="onPressDetail"
+                            >
+                                <cells>
+                                    <ObjectStatus text="{Color}" />
+                                    <Input
+                                        width="20%"
+                                        type="Number"
+                                        submit="onInputSubmit"
+                                        maxLength="2"
+                                        change="getItemChange"
+                                        id="idInputEdit"
+                                        value="{
+                                            parts: [{
+                                                path: 'Freq'
+                                            }]
+                                        }"
+                                        editable="true"
+                                    />
+                                    <ObjectStatus text="{Detail}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </smartTable:SmartTable>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
